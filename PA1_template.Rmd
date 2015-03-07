@@ -34,19 +34,10 @@ plot <- ggplot(steps.day, aes(date, steps)) +
         ggtitle(expression("Total Steps Taken Per Day")) +
         xlab("Date") +
         ylab("Steps")
-ggsave("steps_per_day.png", dpi = 125)
+ggsave("./figure/steps_per_day.png", dpi = 125)
 ```
 
-```{r echo = FALSE}
-plot <- ggplot(steps.day, aes(date, steps)) +
-        geom_histogram(stat = "identity", fill = "skyblue4") +  
-        theme_solarized_2() +
-        theme(text = element_text(size = 10)) + #Fix overlapping numbers
-        ggtitle(expression("Total Steps Taken Per Day")) +
-        xlab("Date") +
-        ylab("Steps")
-ggsave("steps_per_day.png", dpi = 125)
-```
+![Steps per day](figure/steps_per_day.png)
 
 2. Calculate and report the mean and median total number of steps taken per day
 
@@ -80,20 +71,10 @@ plot <- ggplot(steps.interval, aes(interval, steps)) +
         ggtitle(expression("Average Steps Taken Per 5 Minute Interval")) +
         xlab("Interval") +
         ylab("Steps")
-ggsave("steps_per_5min.png", dpi = 125)
+ggsave("./figure/steps_per_5min.png", dpi = 125)
 ```
 
-```{r echo = FALSE}
-steps.interval <- aggregate(steps ~ interval, activity.data, mean)
-plot <- ggplot(steps.interval, aes(interval, steps)) +
-        geom_line(stat = "identity", colour = "skyblue4") +  
-        theme_solarized_2() +
-        theme(text = element_text(size = 10)) + #fix overlapping numbers
-        ggtitle(expression("Average Steps Taken Per 5 Minute Interval")) +
-        xlab("Interval") +
-        ylab("Steps")
-ggsave("steps_per_5min.png", dpi = 125)
-```
+![Steps per 5 minute interval](figure/steps_per_5min.png)
 
 2. Which 5-minute interval, on average across all the days in the
    dataset, contains the maximum number of steps?
@@ -163,19 +144,11 @@ plot <- ggplot(steps.day2, aes(date, steps)) +
         ggtitle(expression("Total Steps Taken Per Day")) +
         xlab("Date") +
         ylab("Steps")
-ggsave("steps_per_day2.png", dpi = 125)
+ggsave("figure/steps_per_day2.png", dpi = 125)
 ```
 
-```{r echo = FALSE}
-plot <- ggplot(steps.day2, aes(date, steps)) +
-        geom_histogram(stat = "identity", fill = "skyblue4") +  
-        theme_solarized_2() +
-        theme(text = element_text(size = 10)) + #Fix overlapping numbers
-        ggtitle(expression("Total Steps Taken Per Day")) +
-        xlab("Date") +
-        ylab("Steps")
-ggsave("steps_per_day2.png", dpi = 125)
-```
+![Steps per day without na's](figure/steps_per_day2.png)
+
 The impact of the missing data seems rather low, at least when
 estimating the total number of steps per day.
 
@@ -186,7 +159,7 @@ estimating the total number of steps per day.
    weekday or weekend day.
 
 ```{r, cache=TRUE}
-daytype <- function(date) {
+days <- function(date) {
     if (weekdays(as.Date(date)) %in% c("Saturday", "Sunday")) {
         "weekend"
     } else {
