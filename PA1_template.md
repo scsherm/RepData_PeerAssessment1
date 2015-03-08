@@ -1,9 +1,4 @@
----
-title: "Reproducible Research: Peer Assessment 1"
-output: 
-  html_document:
-    keep_md: true
----
+# Reproducible Research: Peer Assessment 1
 
 #Samuel Sherman
 #March 2015
@@ -11,7 +6,8 @@ output:
 
 ## Loading and preprocessing the data
 
-```{r echo = TRUE}
+
+```r
 #Load appropriate packages for data processing and plotting
 suppressPackageStartupMessages(require(dplyr))
 suppressPackageStartupMessages(require(plyr))
@@ -25,7 +21,8 @@ activity.data <- read.csv("activity.csv") #Read data file
 
 1. Calculate the total number of steps taken per day
 
-```{r echo = TRUE}
+
+```r
 steps.day <- aggregate(steps ~ date, activity.data, sum) #Sum steps by date
 steps.day$date <- strptime(steps.day$date, 
                            format = "%Y-%m-%d") #Change date to date class
@@ -33,7 +30,8 @@ steps.day$date <- strptime(steps.day$date,
 
 2. Make a histogram of the total number of steps taken per day
 
-```{r echo = TRUE}
+
+```r
 plot <- ggplot(steps.day, aes(date, steps)) +
         geom_histogram(stat = "identity", fill = "skyblue4") +  
         theme_solarized_2() +
@@ -44,18 +42,32 @@ plot <- ggplot(steps.day, aes(date, steps)) +
 ggsave("./figure/steps_per_day.png", dpi = 125)
 ```
 
+```
+## Saving 7 x 5 in image
+```
+
 ![Steps per day](figure/steps_per_day.png)
 
 2. Calculate and report the mean and median total number of steps taken per day
 
 Mean:
-```{r echo = TRUE}
+
+```r
 mean(steps.day$steps)
 ```
 
+```
+## [1] 10766.19
+```
+
 Median:
-```{r echo = TRUE}
+
+```r
 median(steps.day$steps)
+```
+
+```
+## [1] 10765
 ```
 
 ## What is the average daily activity pattern?
@@ -64,7 +76,8 @@ median(steps.day$steps)
    interval (x-axis) and the average number of steps taken, averaged
    across all days (y-axis)
 
-```{r echo = TRUE}
+
+```r
 steps.interval <- aggregate(steps ~ interval, activity.data, mean)
 plot <- ggplot(steps.interval, aes(interval, steps)) +
         geom_line(stat = "identity", colour = "skyblue4") +  
@@ -76,14 +89,23 @@ plot <- ggplot(steps.interval, aes(interval, steps)) +
 ggsave("./figure/steps_per_5min.png", dpi = 125)
 ```
 
+```
+## Saving 7 x 5 in image
+```
+
 ![Steps per 5 minute interval](figure/steps_per_5min.png)
 
 2. Which 5-minute interval, on average across all the days in the
    dataset, contains the maximum number of steps?
 
 Interval with maximum number of average steps:
-```{r echo = TRUE}
+
+```r
 steps.interval$interval[which.max(steps.interval$steps)]
+```
+
+```
+## [1] 835
 ```
 
 ## Imputing missing values
@@ -92,8 +114,13 @@ steps.interval$interval[which.max(steps.interval$steps)]
    dataset (i.e. the total number of rows with `NA`s)
    
 Total number of missing values:
-```{r echo = TRUE}
+
+```r
 sum(is.na(activity.data))
+```
+
+```
+## [1] 2304
 ```
 
 2. Devise a strategy for filling in all of the missing values in the
@@ -110,7 +137,8 @@ average.
 3. Create a new dataset that is equal to the original dataset but with
    the missing data filled in.
 
-```{r echo = TRUE}
+
+```r
 #Merge original data with the steps.interval data
 activity.data2 <- merge(activity.data, steps.interval, 
                        by = "interval", suffixes = c("", "avg"))
@@ -126,13 +154,15 @@ activity.data2 <- arrange(activity.data2, date)
    the first part of the assignment? What is the impact of inputing
    missing data on the estimates of the total daily number of steps?
 
-```{r echo = TRUE}
+
+```r
 steps.day2 <- aggregate(steps ~ date, activity.data2, sum) #Sum steps by date
 steps.day2$date <- strptime(steps.day2$date, 
                            format = "%Y-%m-%d") #Change date to date class
 ```
 
-```{r echo = TRUE}
+
+```r
 plot <- ggplot(steps.day2, aes(date, steps)) +
         geom_histogram(stat = "identity", fill = "skyblue4") +  
         theme_solarized_2() +
@@ -143,16 +173,30 @@ plot <- ggplot(steps.day2, aes(date, steps)) +
 ggsave("figure/steps_per_day2.png", dpi = 125)
 ```
 
+```
+## Saving 7 x 5 in image
+```
+
 ![Steps per day without na's](figure/steps_per_day2.png)
 
 Mean:
-```{r echo = TRUE}
+
+```r
 mean(steps.day2$steps)
 ```
 
+```
+## [1] 10766.19
+```
+
 Median:
-```{r echo = TRUE}
+
+```r
 median(steps.day2$steps)
+```
+
+```
+## [1] 10766.19
 ```
 
 Adding the average steps per interval in replacement of the NA values helped
@@ -166,7 +210,8 @@ they were one step in difference.
    "weekday" and "weekend" indicating whether a given date is a
    weekday or weekend day.
 
-```{r, echo = TRUE}
+
+```r
 #Weekdays function to define the day of week for each date
 dayofwk <- weekdays(as.Date(activity.data2$date))
 #Add column to define day of week
@@ -185,7 +230,8 @@ activity.weekdays <- transform(activity.weekdays, weektype = w)
    taken, averaged across all weekday days or weekend days
    (y-axis).
 
-```{r echo = TRUE}
+
+```r
 #Mean of steps for each interval of each weektype
 steps.interval2 <- aggregate(steps ~ interval + weektype,  
                              activity.weekdays, mean)
@@ -199,6 +245,10 @@ plot <- ggplot(steps.interval2, aes(interval, steps)) +
         xlab("Interval") +
         ylab("Steps")
 ggsave("./figure/steps_per_5min2.png", dpi = 125)
+```
+
+```
+## Saving 7 x 5 in image
 ```
 
 ![Steps per 5 minute inteval by weektype](figure/steps_per_5min2.png)
