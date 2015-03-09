@@ -49,7 +49,7 @@ ggsave("./figure/steps_per_day.png", dpi = 125)
 
 ![Steps per day](figure/steps_per_day.png)
 
-2. Calculate and report the mean and median total number of steps taken per day
+3. Calculate and report the mean and median total number of steps taken per day
 
 
 ```r
