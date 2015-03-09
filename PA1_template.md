@@ -40,10 +40,10 @@ plot <- ggplot(steps.day, aes(date, steps)) +
         ggtitle(expression("Total Steps Taken Per Day")) +
         xlab("Date") +
         ylab("Steps")
-ggsave("./figure/steps_per_day.png", dpi = 125)
+ggsave("./figure/total_steps_per_day.png", dpi = 125)
 ```
 
-![Steps per day](figure/steps_per_day.png)
+![Steps per day](figure/total_steps_per_day.png)
 
 * __Calculate and report the mean and median total number of steps taken per day__
 
@@ -85,10 +85,10 @@ plot <- ggplot(steps.interval, aes(interval, steps)) +
         ggtitle(expression("Average Steps Taken Per 5 Minute Interval")) +
         xlab("Interval") +
         ylab("Steps")
-ggsave("./figure/steps_per_5min.png", dpi = 125)
+ggsave("./figure/avg_steps_per_5min.png", dpi = 125)
 ```
 
-![Steps per 5 minute interval](figure/steps_per_5min.png)
+![Steps per 5 minute interval](figure/avg_steps_per_5min.png)
 
 *  __Which 5-minute interval, on average across all the days in the
    dataset, contains the maximum number of steps?__
@@ -170,10 +170,10 @@ plot <- ggplot(steps.day2, aes(date, steps)) +
         ggtitle(expression("Total Steps Taken Per Day")) +
         xlab("Date") +
         ylab("Steps")
-ggsave("figure/steps_per_day2.png", dpi = 125)
+ggsave("figure/total_steps_per_day2.png", dpi = 125)
 ```
 
-![Steps per day without na's](figure/steps_per_day2.png)
+![Steps per day without na's](figure/total_steps_per_day2.png)
 
 
 ```r
@@ -242,7 +242,7 @@ plot <- ggplot(steps.interval2, aes(interval, steps)) +
         ggtitle(expression("Average Steps Taken Per 5 Minute Interval")) +
         xlab("Interval") +
         ylab("Steps")
-ggsave("./figure/steps_per_5min2.png", dpi = 125)
+ggsave("./figure/avg_steps_per_5min2.png", dpi = 125)
 ```
 
-![Steps per 5 minute inteval by weektype](figure/steps_per_5min2.png)
+![Steps per 5 minute inteval by weektype](figure/avg_steps_per_5min2.png)
