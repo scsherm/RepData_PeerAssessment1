@@ -17,6 +17,7 @@ suppressPackageStartupMessages(require(dplyr))
 suppressPackageStartupMessages(require(plyr))
 library(ggplot2)
 library(ggthemes)
+options(scipen = 6) #rduce probability of scientific notation
 unzip("activity.zip") #Unzip data
 activity.data <- read.csv("activity.csv") #Read data file
 ```
@@ -48,15 +49,15 @@ ggsave("./figure/steps_per_day.png", dpi = 125)
 
 2. Calculate and report the mean and median total number of steps taken per day
 
-Mean:
 ```{r echo = TRUE}
-mean(steps.day$steps)
+mean.stpsdy <- mean(steps.day$steps)
+median.stpsdy <- median(steps.day$steps)
+print(mean.stpsdy)
+print(median.stpsdy)
 ```
 
-Median:
-```{r echo = TRUE}
-median(steps.day$steps)
-```
+The mean number of steps per day is `r round(mean.stpsdy, 2)` and the median
+number of steps per day is `r round(median.stpsdy, 2)`.
 
 ## What is the average daily activity pattern?
 
@@ -81,20 +82,24 @@ ggsave("./figure/steps_per_5min.png", dpi = 125)
 2. Which 5-minute interval, on average across all the days in the
    dataset, contains the maximum number of steps?
 
-Interval with maximum number of average steps:
 ```{r echo = TRUE}
-steps.interval$interval[which.max(steps.interval$steps)]
+interval <- steps.interval$interval[which.max(steps.interval$steps)]
+print(interval)
 ```
+
+Interval `r interval` contains the maximum number of steps, on average.
 
 ## Imputing missing values
 
 1. Calculate and report the total number of missing values in the
    dataset (i.e. the total number of rows with `NA`s)
    
-Total number of missing values:
 ```{r echo = TRUE}
-sum(is.na(activity.data))
+sum.na <- sum(is.na(activity.data))
+print(sum.na)
 ```
+
+The total number of missing values within the dataset is `r sum.na`.
 
 2. Devise a strategy for filling in all of the missing values in the
    dataset. The strategy does not need to be sophisticated. For
@@ -145,15 +150,15 @@ ggsave("figure/steps_per_day2.png", dpi = 125)
 
 ![Steps per day without na's](figure/steps_per_day2.png)
 
-Mean:
 ```{r echo = TRUE}
-mean(steps.day2$steps)
+mean.stpsdy2 <- mean(steps.day2$steps)
+median.stpsdy2 <- median(steps.day2$steps)
+print(mean.stpsdy2)
+print(median.stpsdy2)
 ```
 
-Median:
-```{r echo = TRUE}
-median(steps.day2$steps)
-```
+The mean number of steps per day is `r round(mean.stpsdy2, 2)` and the median
+number of steps per day is `r round(median.stpsdy2, 2)`.
 
 Adding the average steps per interval in replacement of the NA values helped
 fill out the original graph, providing a more even distribution. There are a
