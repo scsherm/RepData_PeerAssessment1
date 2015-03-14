@@ -33,17 +33,16 @@ steps.day$date <- strptime(steps.day$date,
 
 
 ```r
-plot <- ggplot(steps.day, aes(date, steps)) +
+ggplot(steps.day, aes(date, steps)) +
         geom_histogram(stat = "identity", fill = "skyblue4") +  
         theme_solarized_2() +
         theme(text = element_text(size = 10)) + #Fix overlapping numbers
         ggtitle(expression("Total Steps Taken Per Day")) +
         xlab("Date") +
         ylab("Steps")
-ggsave("./figure/steps_per_day.png", dpi = 125)
 ```
 
-![Steps per day](figure/steps_per_day.png)
+![](PA1_template_files/figure-html/unnamed-chunk-3-1.png) 
 
 * __Calculate and report the mean and median total number of steps taken per day__
 
@@ -78,17 +77,16 @@ number of steps per day is 10765._
 
 ```r
 steps.interval <- aggregate(steps ~ interval, activity.data, mean)
-plot <- ggplot(steps.interval, aes(interval, steps)) +
+ggplot(steps.interval, aes(interval, steps)) +
         geom_line(stat = "identity", colour = "skyblue4") +  
         theme_solarized_2() +
         theme(text = element_text(size = 10)) + #Fix overlapping numbers
         ggtitle(expression("Average Steps Taken Per 5 Minute Interval")) +
         xlab("Interval") +
         ylab("Steps")
-ggsave("./figure/steps_per_5min.png", dpi = 125)
 ```
 
-![Steps per 5 minute interval](figure/steps_per_5min.png)
+![](PA1_template_files/figure-html/unnamed-chunk-5-1.png) 
 
 *  __Which 5-minute interval, on average across all the days in the
    dataset, contains the maximum number of steps?__
@@ -163,17 +161,16 @@ steps.day2$date <- strptime(steps.day2$date,
 
 
 ```r
-plot <- ggplot(steps.day2, aes(date, steps)) +
+ggplot(steps.day2, aes(date, steps)) +
         geom_histogram(stat = "identity", fill = "skyblue4") +  
         theme_solarized_2() +
         theme(text = element_text(size = 10)) + #Fix overlapping numbers
         ggtitle(expression("Total Steps Taken Per Day")) +
         xlab("Date") +
         ylab("Steps")
-ggsave("figure/steps_per_day2.png", dpi = 125)
 ```
 
-![Steps per day without na's](figure/steps_per_day2.png)
+![](PA1_template_files/figure-html/unnamed-chunk-10-1.png) 
 
 
 ```r
@@ -234,7 +231,7 @@ activity.weekdays <- transform(activity.weekdays, weektype = w)
 steps.interval2 <- aggregate(steps ~ interval + weektype,  
                              activity.weekdays, mean)
 #Time series panel plot separted by weektype
-plot <- ggplot(steps.interval2, aes(interval, steps)) +
+ggplot(steps.interval2, aes(interval, steps)) +
         geom_line(stat = "identity", colour = "skyblue4") + 
         facet_grid(weektype ~ .) + #Separate graphs by weektype
         theme_solarized_2() +
@@ -242,7 +239,6 @@ plot <- ggplot(steps.interval2, aes(interval, steps)) +
         ggtitle(expression("Average Steps Taken Per 5 Minute Interval")) +
         xlab("Interval") +
         ylab("Steps")
-ggsave("./figure/steps_per_5min2.png", dpi = 125)
 ```
 
-![Steps per 5 minute interval by weektype](figure/steps_per_5min2.png)
+![](PA1_template_files/figure-html/unnamed-chunk-13-1.png) 
